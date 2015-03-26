@@ -152,17 +152,21 @@ function makeArray( obj ) {
       // allow background images
       if ( this.options.background ) {
         if ( !!elem.style.background ) {
-          this.addBackgroundImage( elem );
+          this.addBackgroundImage( elem, 'background' );
+        }
+
+        if ( !!elem.style.backgroundImage ) {
+          this.addBackgroundImage( elem, 'backgroundImage' );
         }
       }
     }
   };
 
-  ImagesLoaded.prototype.addBackgroundImage = function( elem ) {
+  ImagesLoaded.prototype.addBackgroundImage = function( elem, style ) {
 
     var find = /\burl\s*\(\s*["']?([^"'\r\n\)\(]+)["']?\s*\)/gi;
     var replace = /url\((['"])?(.*?)\1\)/;
-    var images = elem.style.background.match( find );
+    var images = elem.style[style].match( find );
 
     for ( var i=0, len = images.length; i < len; i++ ) {
       var img = new Image();
